@@ -12,6 +12,7 @@ const works = [
     name: "Mona Lissa",
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+
     year: 1503,
     painter: "Leonardo da Vinci",
     museumId: 1,
@@ -35,7 +36,7 @@ const createMuseumsTable = db.prepare(`
   );`);
 createMuseumsTable.run();
 const deleteMuseums = db.prepare(`
-    DROP TABLE IF EXISTS musems
+    DROP TABLE IF EXISTS museums
     `);
 deleteMuseums.run();
 const createMuseumsRow = db.prepare(`
@@ -48,6 +49,7 @@ for (let museum of museums) {
 const createWorksTable = db.prepare(`
     CREATE TABLE IF NOT EXISTS works(
         id INTEGER,
+        name TEXT NOT NULL,
         painter TEXT NOT NULL,
         photo TEXT,
         year INTEGER,
@@ -61,9 +63,10 @@ const deleteWorksTable = db.prepare(`
     `);
 deleteWorksTable.run();
 const createWorksRow = db.prepare(`
-    INSERT INTO works (painter,photo,year,museumId) VALUES (@painter, @photo, @year, @museumId)`);
+    INSERT INTO works (painter,photo,year,museumId) VALUES (@painter, @photo,@name, @year, @museumId)`);
 for (let work of works) {
   createWorksRow.run({
+    name: work.name,
     painter: work.painter,
     photo: work.photo,
     year: work.year,
