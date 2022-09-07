@@ -27,7 +27,15 @@ const works = [
     museumId: 1,
   },
 ];
+const deleteWorksTable = db.prepare(`
+    DROP TABLE IF EXISTS works
+    `);
+    deleteWorksTable.run()
 
+const deleteMuseums = db.prepare(`
+    DROP TABLE IF EXISTS museums
+    `);
+deleteMuseums.run();
 const createMuseumsTable = db.prepare(`
   CREATE TABLE IF NOT EXISTS museums (
       id INTEGER ,
@@ -35,10 +43,7 @@ const createMuseumsTable = db.prepare(`
       PRIMARY KEY (id)
   );`);
 createMuseumsTable.run();
-const deleteMuseums = db.prepare(`
-    DROP TABLE IF EXISTS museums
-    `);
-deleteMuseums.run();
+
 const createMuseumsRow = db.prepare(`
     INSERT INTO museums (name) VALUES (@name);
     `);
@@ -48,22 +53,20 @@ for (let museum of museums) {
 
 const createWorksTable = db.prepare(`
     CREATE TABLE IF NOT EXISTS works(
-        id INTEGER,
+        id INTEGER ,
         name TEXT NOT NULL,
         painter TEXT NOT NULL,
         photo TEXT,
         year INTEGER,
         museumId INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY (museumId) REFERENCES museums(id)
         )
     `);
 createWorksTable.run();
-const deleteWorksTable = db.prepare(`
-    DROP TABLE IF EXISTS works
-    `);
-deleteWorksTable.run();
+
 const createWorksRow = db.prepare(`
-    INSERT INTO works (painter,photo,year,museumId) VALUES (@painter, @photo,@name, @year, @museumId)`);
+    INSERT INTO works (name,painter,photo,year,museumId) VALUES (@name,@painter, @photo, @year, @museumId)`);
 for (let work of works) {
   createWorksRow.run({
     name: work.name,
