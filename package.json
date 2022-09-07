@@ -1,4 +1,22 @@
 {
+  "name": "hoxton-node-one-to-many",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnesiSefa/hoxton-node-one-to-many.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EnesiSefa/hoxton-node-one-to-many/issues"
+  },
+  "homepage": "https://github.com/EnesiSefa/hoxton-node-one-to-many#readme",
   "dependencies": {
     "@types/better-sqlite3": "^7.6.0",
     "@types/cors": "^2.8.12",

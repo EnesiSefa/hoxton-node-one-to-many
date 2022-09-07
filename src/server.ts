@@ -4,8 +4,10 @@ import Database from "better-sqlite3";
 
 const db = Database("./db/data.db", { verbose: console.log });
 const app = express();
+app.use(cors())
+app.use(express.json())
 const port = 4000;
-app.use(cors());
+
 const getMuseums = db.prepare(`
 SELECT * FROM museums;
 `);
